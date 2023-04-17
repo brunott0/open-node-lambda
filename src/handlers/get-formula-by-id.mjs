@@ -12,10 +12,10 @@ export const getFormulaByIdHandler = async (event) => {
   console.info("received:", event);
 
   try {
-    const id = event.pathParameters.id;
-    const table = new DynamoDBTable(tableName);
+    // const id = event.pathParameters.id;
+    // const table = new DynamoDBTable(tableName);
   
-    const data = await table.findById(id);
+    const data = {}; // await table.findById(id);
   
     const response = {
       statusCode: 200,

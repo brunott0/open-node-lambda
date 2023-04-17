@@ -1,8 +1,8 @@
-import DynamoDBTable from '../dynamodb/table.mjs';
+// import DynamoDBTable from '../dynamodb/table.mjs';
 
-const tableName = process.env.DYNAMODB_TABLE;
+// const tableName = process.env.DYNAMODB_TABLE;
 
-export const getFormulaByIdHandler = async (event) => {
+export const getFormulaHandler = async (event) => {
   if (event.httpMethod !== "GET") {
     throw new Error(
       `getMethod only accept GET method, you tried: ${event.httpMethod}`
@@ -12,10 +12,10 @@ export const getFormulaByIdHandler = async (event) => {
   console.info("received:", event);
 
   try {
-    const searchString = event.pathParameters.search;
-    const table = new DynamoDBTable(tableName);
+    // const searchString = event.pathParameters.search;
+    // const table = new DynamoDBTable(tableName);
   
-    const data = await table.list({ searchString });
+    const data = {}; // await table.list({ searchString });
   
     const response = {
       statusCode: 200,
@@ -26,7 +26,7 @@ export const getFormulaByIdHandler = async (event) => {
       `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`
     );
 
-    return response;
+    return data;
   } catch(err) {
     return {
       statusCode: 500,

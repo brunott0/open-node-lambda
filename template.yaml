@@ -22,7 +22,7 @@ Resources:
   listFormulasFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/list-formulas.listFormulasHandler
+      Handler: src/handlers/list-formulas.getFormulaHandler
       Runtime: nodejs18.x
       Architectures:
         - x86_64

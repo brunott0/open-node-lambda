@@ -1,15 +1,10 @@
-import DynamoDBTable from '../dynamodb/table.mjs';
+// import DynamoDBTable from '../dynamodb/table.mjs';
 import { validateSchema } from '../middlewares/handlers/update-formula.middleware.mjs';
 
-const tableName = process.env.DYNAMODB_TABLE;
+// const tableName = process.env.DYNAMODB_TABLE;
 
 export const putItemHandler = async (event) => {
-	if (event.httpMethod !== 'POST') {
-			throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`);
-	}
-
-  console.log('event', event);
-  // validateSchema(event);
+	await validateSchema(event);
 
   try {
 		// const body = JSON.parse(event.body);

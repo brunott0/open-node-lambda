@@ -78,7 +78,7 @@ Resources:
   putItemFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/put-item.putItemHandler
+      Handler: src/handlers/update-formula.putItemHandler
       Runtime: nodejs18.x
       Architectures:
         - x86_64

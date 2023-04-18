@@ -1,4 +1,5 @@
 {
-    "httpMethod": "POST",
-    "body": "{\"id\": \"id1\",\"name\": \"name1\"}"
+    "httpMethod": "PATCH",
+    "body": "{\"enabled\": true, \"redirectUrl\": \"url1\"}",
+    "params": "{\"id\": \"id1\"}"
 }

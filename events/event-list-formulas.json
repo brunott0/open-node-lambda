@@ -1,6 +1,4 @@
 {
     "httpMethod": "GET",
-    "pathParameters": {
-        "search": ""
-    }
+    "query": "{\"total\": 10, \"startKey\": \"key\"}"
 }

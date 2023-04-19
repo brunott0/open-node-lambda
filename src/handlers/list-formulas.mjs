@@ -1,15 +1,10 @@
 // import DynamoDBTable from '../dynamodb/table.mjs';
+import { validateSchema } from '../middlewares/handlers/list-formulas.middleware.mjs';
 
 // const tableName = process.env.DYNAMODB_TABLE;
 
 export const getFormulaHandler = async (event) => {
-  if (event.httpMethod !== "GET") {
-    throw new Error(
-      `getMethod only accept GET method, you tried: ${event.httpMethod}`
-    );
-  }
-
-  console.info("received:", event);
+  await validateSchema(event);
 
   try {
     // const searchString = event.pathParameters.search;

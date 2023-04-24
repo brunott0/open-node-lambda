@@ -1,42 +1,40 @@
 import Client from './client.mjs';
-import { GetCommand, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 class DynamoDBTable {
   constructor(tableName) {
-    this.defaultParams = {
-      TableName: tableName
-    };
+    this.dispatch = async (Command, params) => await Client.send(
+      new Command({
+        TableName: tableName,
+        ...params
+      })
+    );
   }
 
-  async findById(id) {
-    const params = {
-      ...defaultParams,
-      Key: { id },
-    };
+  findById = async (id) => await this.dispatch(
+    GetCommand,
+    { Key: { id } }
+  );
 
-    return await Client.send(new GetCommand(params));
-  }
+  update = async (args) => await this.dispatch(
+    PutCommand,
+    { Item: { ...args } }
+  );
 
-  async update(args) {
-    const params = {
-      ...defaultParams,
-      Item: { ...args }
-    };
+  list = async (args) => await this.dispatch(
+    ScanCommand,
+    args
+  );
 
-    return await Client.send(new PutCommand(params));
-  }
-
-  async list(args) {
-    const params = {
-      ...defaultParams,
-      FilterExpression: 'contains(description, :keyword)',
-      ExpressAttributeValues: {
-        ':keyword': { S: args.searchString}
-      }
-    }
-
-    return await Client.send(new ScanCommand(params));
-  }
+  // searchByTerm = async (args) => await this.dispatch(
+  //   ScanCommand,
+  //   {
+  //     FilterExpression: 'contains(description, :keyword)',
+  //     ExpressAttributeValues: {
+  //       ':keyword': { S: args.searchString}
+  //     }
+  //   }
+  // );
 };
 
 export default DynamoDBTable;

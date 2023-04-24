@@ -1,17 +1,17 @@
 // import DynamoDBTable from '../dynamodb/table.mjs';
 import { validateSchema } from '../middlewares/handlers/update-formula.middleware.mjs';
 
-// const tableName = process.env.DYNAMODB_TABLE;
+const tableName = 'FormulasTable' // process.env.DYNAMODB_TABLE;
 
 export const putItemHandler = async (event) => {
 	await validateSchema(event);
 
   try {
-		// const body = JSON.parse(event.body);
-    // const table = new DynamoDBTable(tableName);
-  
-    const data = {}; // await table.update(body);
-  
+		const body = JSON.parse(event.body);
+    const table = new DynamoDBTable(tableName);
+
+    const data = await table.update(body);
+    
     const response = {
       statusCode: 200,
       body: JSON.stringify(data),

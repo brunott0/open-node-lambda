@@ -22,21 +22,21 @@ Resources:
   listFormulasFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/list-formulas.getFormulaHandler
-      Runtime: nodejs18.x
+      Handler: src/handlers/list-formulas.listFormulasHandler
+      Runtime: nodejs16.x
       Architectures:
         - x86_64
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        # Give Create/Read/Update/Delete Permissions to the FormulasTable
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref FormulasTable
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          SAMPLE_TABLE: !Ref SampleTable
+          SAMPLE_TABLE: !Ref FormulasTable
       Events:
         Api:
           Type: Api
@@ -51,20 +51,20 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/handlers/get-formula-by-id.getFormulaByIdHandler
-      Runtime: nodejs18.x
+      Runtime: nodejs16.x
       Architectures:
         - x86_64
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        # Give Create/Read/Update/Delete Permissions to the FormulasTable
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref FormulasTable
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          SAMPLE_TABLE: !Ref SampleTable
+          SAMPLE_TABLE: !Ref FormulasTable
       Events:
         Api:
           Type: Api
@@ -79,20 +79,20 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/handlers/update-formula.putItemHandler
-      Runtime: nodejs18.x
+      Runtime: nodejs16.x
       Architectures:
         - x86_64
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        # Give Create/Read/Update/Delete Permissions to the FormulasTable
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref FormulasTable
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          SAMPLE_TABLE: !Ref SampleTable
+          SAMPLE_TABLE: !Ref FormulasTable
       Events:
         Api:
           Type: Api
@@ -103,7 +103,7 @@ Resources:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
 
   # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
-  SampleTable:
+  FormulasTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:

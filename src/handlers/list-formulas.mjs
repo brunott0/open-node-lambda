@@ -1,27 +1,26 @@
-// import DynamoDBTable from '../dynamodb/table.mjs';
+import DynamoDBTable from '../dynamodb/table.mjs';
 import { validateSchema } from '../middlewares/handlers/list-formulas.middleware.mjs';
 
-// const tableName = process.env.DYNAMODB_TABLE;
+const tableName = 'FormulasTable'
 
-export const getFormulaHandler = async (event) => {
+export const listFormulasHandler = async (event) => {
   await validateSchema(event);
 
   try {
-    // const searchString = event.pathParameters.search;
-    // const table = new DynamoDBTable(tableName);
-  
-    const data = {}; // await table.list({ searchString });
+    const { total, startKey } = event.query;
+    const table = new DynamoDBTable(tableName);
+    const query = startKey ? { ExclusiveStartKey: startKey, Limit: total } : { Limit: total };
+
+    const data = await table.scan(query);
   
     const response = {
       statusCode: 200,
       body: JSON.stringify(data),
     };
   
-    console.info(
-      `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`
-    );
+    console.log(response.body);
 
-    return data;
+    return response;
   } catch(err) {
     return {
       statusCode: 500,

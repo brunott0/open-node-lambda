@@ -1,4 +1,6 @@
 {
     "httpMethod": "GET",
-    "query": "{\"total\": 10, \"startKey\": \"key\"}"
+    "queryStringParameters": {
+        "total": 5 
+    }
 }

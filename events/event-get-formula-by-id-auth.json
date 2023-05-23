@@ -1,0 +1,10 @@
+{
+  "httpMethod": "GET",
+  "queryStringParameters": {
+    "id": "4709.34471.137",
+    "createdAt": "1682303373532"
+  },
+  "headers": {
+    "Authorization": "Bearer ablubleblueblubelube" 
+  } 
+}

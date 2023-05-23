@@ -1,30 +1,24 @@
-import DynamoDBTable from '../dynamodb/table.mjs';
-import { validateSchema } from '../middlewares/handlers/list-formulas.middleware.mjs';
+import { list, search } from '../dynamodb/operations.mjs';
+import requestHandler from '../request-handler.mjs';
+import validator from '../api/validation/list-formulas.validator.mjs';
+import parser from '../api/parser/list-formulas.parser.mjs';
 
-const tableName = 'FormulasTable'
+async function listFormulas(event) {
+  const table = process.env.FORMULAS_TABLE;
+  const params = event.queryStringParameters;
+  const searchFields = ['zfab', 'redirectUrl'];
+  const searchField = Object.keys(params).find(param => searchFields.includes(param));
+  const filterBy = searchField ? { field: searchField, value: params[searchField] } : null;
 
-export const listFormulasHandler = async (event) => {
-  await validateSchema(event);
+  const data = filterBy
+    ? await search({ table, ...filterBy, ...params })
+    : await list({ table, ...params });
 
-  try {
-    const { total, startKey } = event.query;
-    const table = new DynamoDBTable(tableName);
-    const query = startKey ? { ExclusiveStartKey: startKey, Limit: total } : { Limit: total };
-
-    const data = await table.scan(query);
-  
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(data),
-    };
-  
-    console.log(response.body);
-
-    return response;
-  } catch(err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err }),
-    };
-  }
+  return data;
 };
+
+export const listFormulasHandler = requestHandler(
+  validator,
+  parser,
+  listFormulas
+);

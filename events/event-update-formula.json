@@ -1,5 +1,8 @@
 {
-    "httpMethod": "PATCH",
-    "body": "{\"enabled\": true, \"redirectUrl\": \"url1\"}",
-    "params": "{\"id\": \"id1\"}"
+	"httpMethod": "PATCH",
+	"body": "{\"redirectUrl\": \"www.ablubleblelbe.com\"}",
+	"pathParameters": {
+		"id": "4709.34471.137",
+		"createdAt": "1682303373532"
+	}
 }
